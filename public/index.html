@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首都檢索 | 나라로 수도찾기</title>
+	<link rel="stylesheet/less" href="style.less">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.js"></script>
+	<meta name="viewport" content="initial-scale=1.0">
+	<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<header>
+	<div class="form">
+		<input type="text" name="country" class="country" placeholder="나라 이름을 입력하세요" autofocus>
+	</div>
+	<div class="list">
+		또는 전체 국가의 목록 보기
+	</div>
+</header>
+
+<section class="maparea">
+	<div id="map"></div>
+</section>
+
+<script src="script.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLD_HbIcOvElx0guaWsMB_wZNN3Vr81FA&callback=initMap" async defer></script>
+
+</body>
+</html>
+
