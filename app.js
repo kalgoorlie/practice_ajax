@@ -31,7 +31,7 @@ var rawData = [
 	{country:"기니",country_en:"Guinea",capital:"코나크리",capital_en:"Conakry",latitude:"9.54",longitude:"-13.68"},
 	{country:"기니비사우",country_en:"Guinea-Bissau",capital:"비사우",capital_en:"Bissau",latitude:"11.86",longitude:"-15.60"},
 	{country:"나미비아",country_en:"Namibia",capital:"빈트후크",capital_en:"Windhoek",latitude:"-22.56",longitude:"17.08"},
-	{country:"나우루",country_en:"Nauru",capital:"야렌",capital_en:"Yaren",latitude:"166.93",longitude:"-0.54"},
+	{country:"나우루",country_en:"Nauru",capital:"야렌",capital_en:"Yaren",latitude:"-0.54",longitude:"166.93"},
 	{country:"나이지리아",country_en:"Nigeria",capital:"아부자",capital_en:"Abuja",latitude:"9.07",longitude:"7.48"},
 	{country:"남아프리카공화국",country_en:"South Africa",capital:"프리토리아",capital_en:"Pretoria",latitude:"-25.74",longitude:"28.19"},
 	{country:"네덜란드",country_en:"Netherlands",capital:"암스테르담",capital_en:"Amsterdam",latitude:"52.37",longitude:"4.89"},
@@ -228,6 +228,7 @@ var addData = [
 	{country:"호주",country_en:"Australia",capital:"캔버라",capital_en:"Canberra",latitude:"-35.28",longitude:"149.13"},
 	{country:"몽고",country_en:"Mongolia",capital:"울란바토르",capital_en:"Ulan Bator",latitude:"47.91",longitude:"106.88"},
 	{country:"벨로루시",country_en:"Belarus",capital:"민스크",capital_en:"Minsk",latitude:"53.90",longitude:"27.57"},
+	{country:"바티칸",country_en:"Vatican City",capital:"바티칸시티",capital_en:"Vatican City",latitude:"41.90",longitude:"12.45"},
 ]
 
 // 검색용 풀버전 배열 만들기
@@ -238,8 +239,7 @@ function search(value){
 	var order = "undefined"
 	for(var i = 0; i < fullData.length; i++){
 		if(fullData[i].country == value){
-			order = i
-			return order;
+			return fullData[i];
 		}
 	}
 	return order;
@@ -247,17 +247,26 @@ function search(value){
 
 // 나라이름 검색
 app.post('/search', function(req, res){
-	var country = req.body.country;
-	var order = search(country);
+
+	var error = {"type":"search", "status" : "error"}
+	var success = {"type":"search", "status" : "success"}
 	var responseData = ""
-	if(order == "undefined") responseData = {"status" : "error"}
-	else responseData = fullData[order];
+
+	var inputData = req.body.country;
+	var resultData = search(inputData);
+
+	if(resultData == "undefined") responseData = error
+	else responseData = Object.assign({},success,resultData);
 	res.json(responseData);
+
 })
 
 // 전체목록 조회
 app.post('/list', function(req, res){
-	res.json(rawData);
+	var list = {}
+	for(var i=0; i<rawData.length; i++){
+		list[i] = rawData[i].country
+	}
+	var responseData = {"type":"list", "data" : list}
+	res.json(responseData);
 })
-
-

@@ -1,5 +1,3 @@
-
-
 // 입력값 전송
 document.querySelector('.country').addEventListener('keypress', function(e){
 	
@@ -14,6 +12,12 @@ document.querySelector('.country').addEventListener('keypress', function(e){
 		// sendAjax 함수를 만들어서 URL과 data를 전달
 		sendAjax('http://localhost:3000/search', inputdata);
     }
+})
+
+// 전체 목록 조회
+document.querySelector('.list').addEventListener('click', function(){
+    var inputdata = {};
+    sendAjax('http://localhost:3000/list', inputdata);
 })
 
 // 데이터 송수신 처리
@@ -31,13 +35,16 @@ function sendAjax(url, data){
 
 	// 데이터 수신
 	xhr.addEventListener('load', function(){
+
 		// 받은 결과를 문자열로 변환
 		result = JSON.parse(xhr.responseText);
-		if(result.status == "error") alert("검색 결과가 없습니다.")
-		else changeMap(result);
+
+        // 받은 데이터의 타입에 따라 처리
+        if(result.type == "list") showList(result.data)
+		else if(result.type == "search" && result.status == "error") alert("검색 결과가 없습니다.")
+		else if(result.type == "search" && result.status == "success") changeMap(result);
 	})
 }
-
 
 // 구글지도
 var map;
@@ -210,6 +217,38 @@ function changeMap(result){
 
 // 반응형 웹일 때 지도 가운데 재정렬
 window.addEventListener('resize', function(event){
-	if(result) changeMap(result);
-	else initMap()
+	if(result == null || result.status == "error") initMap();
+	else changeMap(result)
 });
+
+// 목록 전체 조회
+function showList(data){
+
+    // 레이어 표시
+    var d = document.getElementById("listarea");
+    d.style.display = "block";
+
+    // 목록 그리기
+    var contentString = "<ul>";
+    for(var i=0; i<Object.keys(data).length; i++){
+        contentString += '<li onClick="selectItem('+i+')">' + data[i] + '</li>'
+    }
+    contentString += "</ul>";
+    document.getElementById("list").innerHTML = contentString
+}
+
+// 목록에서 국가 선택
+function selectItem(number){
+
+    // 선택한 데이터 조회
+    var inputdata = {'country' : result.data[number]}
+    sendAjax('http://localhost:3000/search', inputdata);
+
+    // 입력폼에 선택한 값 표시
+    document.getElementById("searchItem").value = result.data[number];
+    document.getElementById("searchItem").focus();
+
+    // 레이어 숨기기
+    var d = document.getElementById("listarea");
+    d.style.display = "none";
+}

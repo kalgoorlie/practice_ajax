@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>首都檢索 | 나라로 수도찾기</title>
+	<title>수도검색 | 나라로 수도 찾기</title>
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet/less" href="style.less">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.js"></script>
 	<meta name="viewport" content="initial-scale=1.0">
@@ -12,15 +13,17 @@
 
 <header>
 	<div class="form">
-		<input type="text" name="country" class="country" placeholder="나라 이름을 입력하세요" autofocus>
+		<input type="text" id="searchItem" name="country" class="country" placeholder="나라 이름을 입력하세요" autofocus>
 	</div>
-	<div class="list">
-		또는 전체 국가의 목록 보기
-	</div>
+	<a href="#" class="list">또는 전체 국가의 목록 보기</a>
 </header>
 
-<section class="maparea">
+<section id="maparea">
 	<div id="map"></div>
+</section>
+
+<section id="listarea">
+	<div id="list"></div>
 </section>
 
 <script src="script.js"></script>
