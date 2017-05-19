@@ -1,6 +1,7 @@
 # 나라 이름으로 수도 검색하기
 
-Node.js에서 Ajax를 이용한 데이터 통신을 연습하는 예제입니다. [윤지수 님의 인프런 강의](https://www.inflearn.com/course/node-js-%EC%9B%B9%EA%B0%9C%EB%B0%9C/)의 중간 실습 과제로 만들었습니다.
+Node.js에서 Ajax를 이용한 데이터 통신을 연습하는 예제입니다.
+[윤지수 님의 인프런 강의](https://www.inflearn.com/course/node-js-%EC%9B%B9%EA%B0%9C%EB%B0%9C/)의 중간 실습 과제로 만들었습니다.
 
 ### 미션
 1. express 설정
@@ -10,6 +11,8 @@ Node.js에서 Ajax를 이용한 데이터 통신을 연습하는 예제입니다
 5. 화면에 결과를 노출하기
 
 ---
+
+# 실습과정 요약
 
 ### 1. 새 프로젝트를 만들고 express를 설치한다.
 
@@ -82,9 +85,9 @@ app.post('/email_post', function(req,res){
 })
 ```
 
-## Ajax 통신 추가하기
+---
 
-위에서 한 FORM 방식이 URL이 바뀐다면, Ajax는 한 페이지 안에서 새로고침 없이 비동기 형태로 데이터를 주고받을 수 있는 방식이다. 폼 화면은 동일하게 활용하고, 아래와 같이 통신부분만 추가한다.
+# Ajax 통신 추가하기
 
 ### 1. ajax 요청을 보낼 버튼을 그린다.
 ```html
@@ -146,9 +149,8 @@ app.post('/ajax_send_email', function(req, res){
     // 데이터가 없으면 return 반환
     if(result.result !== 'ok') return;
     // 데이터가 있으면 결과값 표시
-    document.querySelector(".serult").innerHTML = result.email;
+    document.querySelector(".result").innerHTML = result.email;
   });
 </script>
 ```
 
-## 전체 코드
