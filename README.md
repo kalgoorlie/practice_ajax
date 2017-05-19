@@ -1,7 +1,9 @@
 # 나라 이름으로 수도 검색하기
 
-Node.js에서 Ajax를 이용한 데이터 통신을 연습하는 예제입니다.
-[윤지수 님의 인프런 강의](https://www.inflearn.com/course/node-js-%EC%9B%B9%EA%B0%9C%EB%B0%9C/)의 중간 실습 과제로 만들었습니다.
+* Node.js에서 Ajax를 이용한 데이터 통신을 연습하는 예제입니다.
+* [윤지수 님의 인프런 강의](https://www.inflearn.com/course/node-js-%EC%9B%B9%EA%B0%9C%EB%B0%9C/)의 중간 실습 과제로 만들었습니다.
+* 나라 이름을 입력하면 수도를 검색하는 기능을 구현했습니다.
+* node_modules 폴더는 업로드 하지 않았습니다. (npm install 필요)
 
 ### 미션
 1. express 설정
