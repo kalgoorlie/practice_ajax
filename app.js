@@ -217,8 +217,10 @@ var rawData = [
 	{country:"핀란드",country_en:"Finland",capital:"헬싱키",capital_en:"Helsinki",latitude:"60.17",longitude:"24.94"},
 	{country:"필리핀",country_en:"Philippines",capital:"마닐라",capital_en:"Manila",latitude:"14.60",longitude:"120.98"},
 	{country:"헝가리",country_en:"Hungary",capital:"부다페스트",capital_en:"Budapest",latitude:"47.50",longitude:"19.04"},
+]
 
-	// 헷갈리는 이름 보정
+// 헷갈리는 이름 보정
+var addData = [
 	{country:"태국",country_en:"Thailand",capital:"방콕",capital_en:"Bangkok",latitude:"13.75",longitude:"100.50"},
 	{country:"대만",country_en:"Taiwan",capital:"타이베이",capital_en:"Taipei",latitude:"25.05",longitude:"121.53"},
 	{country:"남아공",country_en:"South Africa",capital:"프리토리아",capital_en:"Pretoria",latitude:"-25.74",longitude:"28.19"},
@@ -228,11 +230,14 @@ var rawData = [
 	{country:"벨로루시",country_en:"Belarus",capital:"민스크",capital_en:"Minsk",latitude:"53.90",longitude:"27.57"},
 ]
 
+// 검색용 풀버전 배열 만들기
+var fullData = rawData.concat(addData);
+
 // 수도 검색
 function search(value){
 	var order = "undefined"
-	for(var i = 0; i < rawData.length; i++){
-		if(rawData[i].country == value){
+	for(var i = 0; i < fullData.length; i++){
+		if(fullData[i].country == value){
 			order = i
 			return order;
 		}
@@ -240,12 +245,19 @@ function search(value){
 	return order;
 }
 
-// AJAX 요청 처리
-app.post('/by_ajax', function(req, res){
+// 나라이름 검색
+app.post('/search', function(req, res){
 	var country = req.body.country;
 	var order = search(country);
 	var responseData = ""
 	if(order == "undefined") responseData = {"status" : "error"}
-	else responseData = rawData[order];
+	else responseData = fullData[order];
 	res.json(responseData);
 })
+
+// 전체목록 조회
+app.post('/list', function(req, res){
+	res.json(rawData);
+})
+
+

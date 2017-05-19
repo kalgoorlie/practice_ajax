@@ -12,7 +12,7 @@ document.querySelector('.country').addEventListener('keypress', function(e){
 		var inputdata = {'country' : inputvalue}
 
 		// sendAjax 함수를 만들어서 URL과 data를 전달
-		sendAjax('http://localhost:3000/by_ajax', inputdata);
+		sendAjax('http://localhost:3000/search', inputdata);
     }
 })
 
@@ -37,6 +37,7 @@ function sendAjax(url, data){
 		else changeMap(result);
 	})
 }
+
 
 // 구글지도
 var map;
