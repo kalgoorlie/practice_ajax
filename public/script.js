@@ -178,7 +178,6 @@ function initMap() {
 	});
 }
 function changeMap(result){
-	console.log(result)
 	var lati = Number(result.latitude);
 	var long = Number(result.longitude);
 	var country = result.country;
